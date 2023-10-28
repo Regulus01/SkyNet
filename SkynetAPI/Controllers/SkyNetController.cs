@@ -30,9 +30,18 @@ public class SkyNetController : ControllerBase
         request.Headers.Add("Ocp-Apim-Subscription-Region", "eastus");
 
         var response = await client.SendAsync(request).ConfigureAwait(false);
-        var result = await response.Content.ReadAsStringAsync();
-        var textoTraduzido = JsonConvert.DeserializeObject<Root[]>(result);
+
+        if (!response.IsSuccessStatusCode) 
+            return BadRequest();
         
-        return Ok(textoTraduzido.FirstOrDefault().Translations.FirstOrDefault());   
+        var result = await response.Content.ReadAsStringAsync();
+        var rootTexts = JsonConvert.DeserializeObject<Root[]>(result);
+            
+        if (rootTexts == null) 
+            return BadRequest();
+            
+        var textotraduzido = rootTexts.First().Translations.First();
+        return Ok(textotraduzido);
+
     }
 }
