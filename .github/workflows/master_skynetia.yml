@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'SkyNetIA'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1EECC6035C7F46B69A085553A9DD2B35 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4C020B6186414AC4B5E02D8BA821CC3F }}
           package: .
