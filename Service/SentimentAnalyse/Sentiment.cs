@@ -24,9 +24,9 @@ public class Sentiment
         foreach (var sentence in documentSentiment.Sentences)
         {
             return new TextSentment(sentence.Sentiment.ToString(), 
-                                    Math.Truncate(sentence.ConfidenceScores.Positive), 
-                                     Math.Truncate(sentence.ConfidenceScores.Negative), 
-                                     Math.Truncate(sentence.ConfidenceScores.Neutral));
+                                    Math.Truncate(sentence.ConfidenceScores.Positive * 100), 
+                                     Math.Truncate(sentence.ConfidenceScores.Negative * 100), 
+                                     Math.Truncate(sentence.ConfidenceScores.Neutral * 100));
             
         }
         
