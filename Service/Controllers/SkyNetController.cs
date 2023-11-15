@@ -8,7 +8,7 @@ using Sentiment = SkynetAPI.SentimentAnalyse.Sentiment;
 namespace SkynetAPI.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/ia")]
 public class SkyNetController : ControllerBase
 {
     private readonly string _apiKey = "d771db2ed9234233b86c46b9ec0a238f";
