@@ -23,10 +23,11 @@ public class Sentiment
 
         foreach (var sentence in documentSentiment.Sentences)
         {
-            return new TextSentment(sentence.Sentiment.ToString(), sentence.ConfidenceScores.Positive, 
-                                sentence.ConfidenceScores.Negative, 
-                                sentence.ConfidenceScores.Neutral);
-     
+            return new TextSentment(sentence.Sentiment.ToString(), 
+                                    Math.Truncate(sentence.ConfidenceScores.Positive), 
+                                     Math.Truncate(sentence.ConfidenceScores.Negative), 
+                                     Math.Truncate(sentence.ConfidenceScores.Neutral));
+            
         }
         
         return new TextSentment();
