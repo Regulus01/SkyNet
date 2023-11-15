@@ -2,6 +2,8 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SkynetAPI.Entities;
+using SkynetAPI.SentimentAnalyse.ViewModels;
+using Sentiment = SkynetAPI.SentimentAnalyse.Sentiment;
 
 namespace SkynetAPI.Controllers;
 
@@ -22,7 +24,7 @@ public class SkyNetController : ControllerBase
 
         var client = new HttpClient();
         var request = new HttpRequestMessage();
-        
+
         request.Method = HttpMethod.Post;
         request.RequestUri = new Uri(_endPointTranlatorBase + route);
         request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
@@ -31,17 +33,25 @@ public class SkyNetController : ControllerBase
 
         var response = await client.SendAsync(request).ConfigureAwait(false);
 
-        if (!response.IsSuccessStatusCode) 
+        if (!response.IsSuccessStatusCode)
             return BadRequest();
-        
+
         var result = await response.Content.ReadAsStringAsync();
         var rootTexts = JsonConvert.DeserializeObject<Root[]>(result);
-            
-        if (rootTexts == null) 
+
+        if (rootTexts == null)
             return BadRequest();
-            
+
         var textotraduzido = rootTexts.First().Translations.First();
         return Ok(textotraduzido);
 
     }
+
+    [HttpGet]
+    [Route("AnalisarSentimento")]
+    public async Task<TextSentment> AnalisarSentimento(string texto)
+    {
+        return Sentiment.ObterSentimento(texto);
+    }
+
 }
